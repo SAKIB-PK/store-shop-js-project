@@ -2,9 +2,6 @@ body {
   overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
 }
-.font-bold{
-  font-weight: bold;
-}
 .search-field {
   border: none;
   border-radius: 50px;
@@ -22,6 +19,7 @@ body {
   margin: auto;
   margin-top: 50px;
   border-right: none;
+  display: flex;
 }
 .search-button {
   padding: 10px 50px;
