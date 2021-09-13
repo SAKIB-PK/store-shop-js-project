@@ -24,7 +24,7 @@ const showProducts = (products) => {
       <p><span> Rating: ${product.rating.rate} </span><span class='text-muted'>(${product.rating.count})</span></p>
       <h2>Price: $ ${product.price}</h2>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-primary">add to cart</button>
-      <button id="details-btn" class="btn btn-warning">Details</button></div>
+      <button id="details-btn" onclick='detailsShow(${product.id})'data-toggle="modal" data-target="#myModal" class="btn btn-warning">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
@@ -85,3 +85,30 @@ const updateTotal = () => {
     getInputValue("total-tax");
   document.getElementById("total").innerText = grandTotal.toFixed(2);
 };
+
+// show modal 
+const detailsShow =async id =>{
+  let data = await fetch(`https://fakestoreapi.com/products/${id}`)
+  let res = await data.json()
+  displayModal(res)
+}
+const displayModal =item=>{
+  console.log(item)
+  let modal = document.getElementById('mod')
+  modal.innerHTML =''
+  modal.innerHTML = `<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title" id="myModalLabel">${item.title}</h4>
+</div>
+<div class="modal-body">
+  <img src=${item.image} class='img-responsive' />
+  <p>${item.description}</p>
+  <p>Category: ${item.category}</p>
+  <p><strong>Price : $${item.price}</strong></p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <button type="button" class="btn btn-primary">Save changes</button>
+</div>
+  `
+}
